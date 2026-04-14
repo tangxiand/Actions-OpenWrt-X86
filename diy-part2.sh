@@ -13,23 +13,16 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 # 4. 核心功能
 ./scripts/feeds install luci-app-mwan3 luci-app-ddns luci-app-zerotier luci-app-wol luci-app-store istore
 
-# 5. 流控
-./scripts/feeds install luci-app-sqm luci-app-eqos
+# 5. 流控（仅保留官方稳定的 sqm，移除 eqos）
+./scripts/feeds install luci-app-sqm
 
 # 6. IPv6
 ./scripts/feeds install luci-proto-ipv6 odhcp6c odhcpd-ipv6only ip6tables
 
-# ========== 7. 2.5G 网卡驱动（必装） ==========
-# Intel I225 / I226 (官方内核自带)
-./scripts/feeds install kmod-igc
+# 7. 2.5G 网卡驱动
+./scripts/feeds install kmod-igc kmod-r8125 kmod-r8169
 
-# Realtek RTL8125B / 8125BG (第三方稳定驱动)
-./scripts/feeds install kmod-r8125
-
-# 通用千兆/2.5G兼容驱动
-./scripts/feeds install kmod-r8169
-
-# 8. 工具包（撑大固件到1G）
+# 8. 工具包
 ./scripts/feeds install luci-app-filebrowser luci-app-diskman luci-app-upnp luci-app-ttyd luci-app-arpbind ntfs-3g-utils block-mount e2fsprogs
 
 # 9. 全中文翻译
