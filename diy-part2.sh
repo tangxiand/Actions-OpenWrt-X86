@@ -1,53 +1,28 @@
 #!/bin/bash
+# 功能：进行编译前的个性化配置微调
+set -e
 
-# ==============================
-# 修复 → 强制默认中文（真正生效）
-# ==============================
-sed -i 's/config language.*/config language '\''zh_cn'\''/' feeds/luci/modules/luci-base/root/etc/config/luci
-sed -i 's/auto/zh_cn/g' feeds/luci/modules/luci-base/root/etc/config/luci
+# 1. 预置 ZeroTier 网络 ID (请务必替换 '你的网络ID' 为实际的 ID)
+mkdir -p files/etc/config/
+cat > files/etc/config/zerotier <<EOF
+config zerotier sample_config
+    option enabled '1'
+    option config_path '/etc/zerotier'
+    list join '你的网络ID'
+    option port '9993'
+    option secret ''
+EOF
 
-# ==============================
-# Argon 主题
-# ==============================
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+# 2. 设置默认主题为 Argon，默认语言为中文
+mkdir -p files/etc/config
+cat > files/etc/config/luci <<EOF
+config core 'main'
+    option lang 'zh_cn'
+    option mediaurlbase '/luci-static/argon'
+    option resourcebase '/luci-static/resources'
+EOF
 
-# ==============================
-# 设备监控
-# ==============================
-./scripts/feeds install luci-app-wrtbwmon luci-app-nlbwmon luci-app-lanstat luci-app-device-tracker
-
-# ==============================
-# 核心功能
-# ==============================
-./scripts/feeds install luci-app-mwan3 luci-app-ddns luci-app-zerotier luci-app-wol luci-app-store istore
-
-# ==============================
-# 流控
-# ==============================
-./scripts/feeds install luci-app-sqm
-
-# ==============================
-# IPv6
-# ==============================
-./scripts/feeds install luci-proto-ipv6 odhcp6c odhcpd-ipv6only ip6tables
-
-# ==============================
-# 2.5G 网卡驱动
-# ==============================
-./scripts/feeds install kmod-igc kmod-r8125 kmod-r8169
-
-# ==============================
-# 工具
-# ==============================
-./scripts/feeds install luci-app-filebrowser luci-app-diskman luci-app-upnp luci-app-ttyd luci-app-arpbind ntfs-3g-utils block-mount e2fsprogs
-
-# ==============================
-# 全插件中文翻译
-# ==============================
-./scripts/feeds install luci-i18n-base-zh-cn
-./scripts/feeds install luci-i18n-mwan3-zh-cn
-./scripts/feeds install luci-i18n-ddns-zh-cn
-./scripts/feeds install luci-i18n-wol-zh-cn
-./scripts/feeds install luci-i18n-zerotier-zh-cn
-./scripts/feeds install luci-i18n-sqm-zh-cn
-./scripts/feeds install luci-i18n-upnp-zh-cn
+# 3. 针对 default-settings 强制设置默认语言为中文 (如果存在)
+if [ -d package/emortal/default-settings ]; then
+    sed -i 's/option lang auto/option lang zh_cn/g' package/emortal/default-settings/files/99-default-settings
+fi
