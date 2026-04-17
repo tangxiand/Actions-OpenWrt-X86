@@ -1,18 +1,23 @@
 #!/bin/bash
-# diy-part1.sh
 
-# 1. 清理可能冲突的旧目录
-rm -rf package/istore
-rm -rf package/lienol
+# 更新 feeds
+./scripts/feeds update -a
 
-# 2. 重新克隆
-# 注意：istore 仓库结构较深，确保克隆到正确位置
-git clone --depth 1 https://github.com/linkease/istore.git package/istore
+# --- 移除冲突源 (lienol) ---
+# 不再添加 lienol 源，避免 verysync 等插件报错
 
-# Lienol 的包通常直接放在 package 下即可
-git clone --depth 1 https://github.com/Lienol/openwrt-package.git package/lienol
+# --- 添加常用插件源 (替代方案) ---
+# 使用 kenzok8 源获取 PassWall, SSR+, 动态DNS 等常用插件
+git clone https://github.com/kenzok8/openwrt-packages.git package/kenzok8
+git clone https://github.com/kenzok8/small.git package/small
 
-# 3. 获取 statistics (Netdata)
-git clone --depth 1 https://github.com/coolsnowwolf/lede.git temp_lede
-cp -r temp_lede/package/lean/luci-app-statistics package/
-rm -rf temp_lede
+# --- 添加 iStore 源 ---
+# 保持你之前的写法，但确保在 feeds 目录下
+rm -rf feeds/istore
+git clone https://github.com/istore/istore.git feeds/istore
+
+# 再次更新 feeds
+./scripts/feeds update -a
+
+# 安装所有 feeds
+./scripts/feeds install -a
