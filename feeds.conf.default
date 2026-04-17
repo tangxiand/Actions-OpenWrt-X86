@@ -1,20 +1,10 @@
-# 官方 OpenWrt 源 (基础系统)
+# 官方 OpenWrt 源
 src-git packages https://git.openwrt.org/feed/packages.git^d7105705
 src-git luci https://git.openwrt.org/project/luci.git^b6293b82
 src-git routing https://git.openwrt.org/feed/routing.git^d7105705
 src-git telephony https://git.openwrt.org/feed/telephony.git^d7105705
 
-# ImmortalWrt 源 (强烈建议保留，用于获取更完善的中文插件和依赖)
+# ImmortalWrt 源 (推荐，包含更多中文优化)
 src-git immortalwrt https://github.com/immortalwrt/immortalwrt.git^openwrt-23.05
 src-git immortalwrt_packages https://github.com/immortalwrt/packages.git^openwrt-23.05
 src-git immortalwrt_luci https://github.com/immortalwrt/luci.git^openwrt-23.05
-
-# -------------------------------------------------------
-# 第三方插件源 (对应 diy-part1.sh 中的克隆操作)
-# -------------------------------------------------------
-
-# Lienol 源 (包含 passwall, smartdns 等常用插件)
-src-git lienol https://github.com/Lienol/openwrt-package.git
-
-# iStore 源 (应用商店)
-src-git istore https://github.com/linkease/istore.git
