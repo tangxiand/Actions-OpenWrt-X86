@@ -1,10 +1,20 @@
-src-git packages https://github.com/openwrt/packages.git
-src-git luci https://github.com/openwrt/luci.git
-src-git routing https://github.com/openwrt/routing.git
-src-git telephony https://github.com/openwrt/telephony.git
+# 官方 OpenWrt 源 (基础系统)
+src-git packages https://git.openwrt.org/feed/packages.git^d7105705
+src-git luci https://git.openwrt.org/project/luci.git^b6293b82
+src-git routing https://git.openwrt.org/feed/routing.git^d7105705
+src-git telephony https://git.openwrt.org/feed/telephony.git^d7105705
 
-# 最稳定、无冲突、中文齐全的第三方源
-src-git istore https://github.com/linkease/istore;main
-src-git kenzo https://github.com/kenzok8/openwrt-packages
-src-git small https://github.com/kenzok8/small-package
-src-git r8125 https://github.com/sbwml/package_kernel_r8125
+# ImmortalWrt 源 (强烈建议保留，用于获取更完善的中文插件和依赖)
+src-git immortalwrt https://github.com/immortalwrt/immortalwrt.git^openwrt-23.05
+src-git immortalwrt_packages https://github.com/immortalwrt/packages.git^openwrt-23.05
+src-git immortalwrt_luci https://github.com/immortalwrt/luci.git^openwrt-23.05
+
+# -------------------------------------------------------
+# 第三方插件源 (对应 diy-part1.sh 中的克隆操作)
+# -------------------------------------------------------
+
+# Lienol 源 (包含 passwall, smartdns 等常用插件)
+src-git lienol https://github.com/Lienol/openwrt-package.git
+
+# iStore 源 (应用商店)
+src-git istore https://github.com/linkease/istore.git
