@@ -1,10 +1,10 @@
-# 官方基础源（必须保留）
 src-git packages https://github.com/openwrt/packages.git
 src-git luci https://github.com/openwrt/luci.git
 src-git routing https://github.com/openwrt/routing.git
 src-git telephony https://github.com/openwrt/telephony.git
 
-# 第三方源（解决中文包和常用插件）
-src-git lean_packages https://github.com/coolsnowwolf/packages
-src-git lean_luci https://github.com/coolsnowwolf/luci
-src-git lienol https://github.com/xiaorouji/openwrt-package
+# 最稳定、无冲突、中文齐全的第三方源
+src-git istore https://github.com/linkease/istore;main
+src-git kenzo https://github.com/kenzok8/openwrt-packages
+src-git small https://github.com/kenzok8/small-package
+src-git r8125 https://github.com/sbwml/package_kernel_r8125
